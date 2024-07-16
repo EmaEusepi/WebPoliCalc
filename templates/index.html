@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Polimi-Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="number"], button {
+            width: calc(50% - 10px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+    </style>
+    <script>
+        async function performCalculation(endpoint, params) {
+            const url = new URL(`/${endpoint}`, window.location.origin);
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+            const response = await fetch(url);
+            const result = await response.json();
+            document.getElementById('result').innerText = `Result: ${result.result}`;
+        }
+
+        function add() {
+            const a = document.getElementById('add_a').value;
+            const b = document.getElementById('add_b').value;
+            performCalculation('add', {a, b});
+        }
+
+        function subtract() {
+            const a = document.getElementById('subtract_a').value;
+            const b = document.getElementById('subtract_b').value;
+            performCalculation('subtract', {a, b});
+        }
+
+        function multiply() {
+            const a = document.getElementById('multiply_a').value;
+            const b = document.getElementById('multiply_b').value;
+            performCalculation('multiply', {a, b});
+        }
+
+        function divide() {
+            const a = document.getElementById('divide_a').value;
+            const b = document.getElementById('divide_b').value;
+            performCalculation('divide', {a, b});
+        }
+
+        function power() {
+            const base = document.getElementById('power_base').value;
+            const exp = document.getElementById('power_exp').value;
+            performCalculation('power', {base, exp});
+        }
+
+        function squareRoot() {
+            const num = document.getElementById('square_root_num').value;
+            performCalculation('square-root', {num});
+        }
+
+        function modulus() {
+            const a = document.getElementById('modulus_a').value;
+            const b = document.getElementById('modulus_b').value;
+            performCalculation('modulus', {a, b});
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Polimi-Calculator</h1>
+
+        <div class="form-group">
+            <label for="add_a">Addition</label>
+            <input type="number" id="add_a" placeholder="Enter first number">
+            <input type="number" id="add_b" placeholder="Enter second number">
+            <button onclick="add()">Add</button>
+        </div>
+
+        <div class="form-group">
+            <label for="subtract_a">Subtraction</label>
+            <input type="number" id="subtract_a" placeholder="Enter first number">
+            <input type="number" id="subtract_b" placeholder="Enter second number">
+            <button onclick="subtract()">Subtract</button>
+        </div>
+
+        <div class="form-group">
+            <label for="multiply_a">Multiplication</label>
+            <input type="number" id="multiply_a" placeholder="Enter first number">
+            <input type="number" id="multiply_b" placeholder="Enter second number">
+            <button onclick="multiply()">Multiply</button>
+        </div>
+
+        <div class="form-group">
+            <label for="divide_a">Division</label>
+            <input type="number" id="divide_a" placeholder="Enter first number">
+            <input type="number" id="divide_b" placeholder="Enter second number">
+            <button onclick="divide()">Divide</button>
+        </div>
+
+        <div class="form-group">
+            <label for="power_base">Power</label>
+            <input type="number" id="power_base" placeholder="Enter base number">
+            <input type="number" id="power_exp" placeholder="Enter exponent">
+            <button onclick="power()">Power</button>
+        </div>
+
+        <div class="form-group">
+            <label for="square_root_num">Square Root</label>
+            <input type="number" id="square_root_num" placeholder="Enter number">
+            <button onclick="squareRoot()">Square Root</button>
+        </div>
+
+        <div class="form-group">
+            <label for="modulus_a">Modulus</label>
+            <input type="number" id="modulus_a" placeholder="Enter first number">
+            <input type="number" id="modulus_b" placeholder="Enter second number">
+            <button onclick="modulus()">Modulus</button>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+</body>
+</html>
+
