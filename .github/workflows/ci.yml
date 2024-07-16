@@ -20,7 +20,7 @@ jobs:
         run: docker build -t my-calc .
 
       - name: Run Docker container
-        run: docker run -d -p 5000:8000 my-calc
+        run: docker run -d -p 5000:8000 --name my-calc-container my-calc
 
       - name: Run tests
-        run: docker exec my-calc-container-name python -m unittest discover -s tests
+        run: docker exec my-calc-container python -m unittest discover -s tests
